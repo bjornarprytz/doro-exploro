@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgrejd4v5ywd3"]
+
+[ext_resource type="Script" uid="uid://dpwj7g7h22h4c" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://7eksb1ln826g" path="res://player.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://ckdwmqvdejpff" path="res://world/infinite_sectors.tscn" id="3_h2yge"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_h2yge")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_0xm2m")]
+unique_name_in_owner = true
+position = Vector2(577, 689)
+
+[node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+
+[node name="InfiniteSectors" parent="." instance=ExtResource("3_h2yge")]

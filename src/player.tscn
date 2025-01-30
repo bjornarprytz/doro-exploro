@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://7eksb1ln826g"]
+
+[ext_resource type="Script" uid="uid://ptd6iy6d356e" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://cvwqhr20r4c75" path="res://assets/img/spaceship mockup.png" id="2_onrkg"]
+[ext_resource type="Texture2D" uid="uid://cirbrxisj2q4p" path="res://assets/img/circle_hollow.png" id="3_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://dloravarhfkb3" path="res://assets/white-square.png" id="4_hqtel"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3pqv"]
+radius = 7.0
+height = 36.0
+
+[sub_resource type="Curve" id="Curve_onrkg"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 0.303371), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Player" type="RigidBody2D"]
+texture_filter = 1
+collision_layer = 3
+script = ExtResource("1_onrkg")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 1)
+texture = ExtResource("2_onrkg")
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.000179291)
+shape = SubResource("CapsuleShape2D_i3pqv")
+
+[node name="Exhaust" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 17)
+emitting = false
+texture = ExtResource("3_i3pqv")
+particle_flag_align_y = true
+direction = Vector2(0, 1)
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_onrkg")
+
+[node name="Burn" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.168627, 1, 1)
+position = Vector2(0, 12)
+emitting = false
+amount = 15
+texture = ExtResource("4_hqtel")
+lifetime = 0.3
+lifetime_randomness = 0.6
+emission_shape = 1
+emission_sphere_radius = 8.0
+particle_flag_align_y = true
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_onrkg")

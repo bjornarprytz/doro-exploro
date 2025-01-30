@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgrejd4v5ywd3"]
+
+[ext_resource type="Script" uid="uid://dpwj7g7h22h4c" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://7eksb1ln826g" path="res://player.tscn" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://bh5saq5wwup27" path="res://assets/img/bubble test 1.png" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://ckdwmqvdejpff" path="res://world/infinite_sectors.tscn" id="3_h2yge"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1bvp3"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_h2yge")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -77.0
+offset_top = 11.0
+offset_right = -11.0
+offset_bottom = 77.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1bvp3")
+
+[node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer/Control/PanelContainer"]
+layout_mode = 2
+
+[node name="Goal" type="RichTextLabel" parent="CanvasLayer/Control/PanelContainer/CenterContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "0 / 15"
+fit_content = true
+autowrap_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("2_1bvp3")
+expand_mode = 1
+
+[node name="FadeOut" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Player" parent="." instance=ExtResource("2_0xm2m")]
+unique_name_in_owner = true
+position = Vector2(899, 330)
+
+[node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+
+[node name="InfiniteSectors" parent="." instance=ExtResource("3_h2yge")]
+position = Vector2(-1000, -1000)

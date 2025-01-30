@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckdwmqvdejpff"]
+
+[ext_resource type="Script" uid="uid://bvgwqekjuyrn1" path="res://world/infinite_sectors.gd" id="1_ltdfr"]
+
+[node name="InfiniteSectors" type="Node2D"]
+script = ExtResource("1_ltdfr")

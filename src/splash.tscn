@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi8uuojij5yv4"]
+
+[ext_resource type="Script" uid="uid://ckm3pjbfp4hqa" path="res://splash.gd" id="1_50j67"]
+[ext_resource type="Texture2D" uid="uid://cd18tjlhpktwt" path="res://assets/Splash screen logo.png" id="1_b04ml"]
+
+[node name="Splash" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_50j67")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Target" type="Node2D" parent="."]
+position = Vector2(640, 400)
+
+[node name="Logo" type="Sprite2D" parent="Target"]
+unique_name_in_owner = true
+texture_filter = 2
+position = Vector2(0, 624)
+scale = Vector2(0.784, 0.784)
+texture = ExtResource("1_b04ml")
+
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true

@@ -1,0 +1,120 @@
+[gd_scene load_steps=7 format=3 uid="uid://bgnyr8u66lols"]
+
+[ext_resource type="Script" uid="uid://c6ik408fneeku" path="res://game_splash.gd" id="1_6dclb"]
+[ext_resource type="Texture2D" uid="uid://dpr7cvihuhuvi" path="res://assets/img/Soundship Pop odyssey (1).png" id="1_ck1vk"]
+[ext_resource type="Texture2D" uid="uid://cswak7n47yk2o" path="res://assets/img/Soundship Pop odyssey (2).png" id="2_6dclb"]
+[ext_resource type="Texture2D" uid="uid://bh5saq5wwup27" path="res://assets/img/bubble test 1.png" id="4_q7bun"]
+[ext_resource type="Texture2D" uid="uid://b08hdprowquq1" path="res://assets/img/arrow_keys.png" id="4_xcqkv"]
+[ext_resource type="Texture2D" uid="uid://co2wfliw6xu0p" path="res://assets/img/note_4.png" id="5_07ng1"]
+
+[node name="GameSplash" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6dclb")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_ck1vk")
+centered = false
+
+[node name="Logo" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(640, 360)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_6dclb")
+
+[node name="Controls" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 399.0
+offset_top = 581.0
+offset_right = 599.0
+offset_bottom = 698.0
+texture = ExtResource("4_xcqkv")
+
+[node name="up" type="RichTextLabel" parent="Controls"]
+layout_mode = 0
+offset_left = 146.0
+offset_top = 7.0
+offset_right = 439.0
+offset_bottom = 75.0
+text = "Main engine"
+fit_content = true
+autowrap_mode = 0
+
+[node name="right" type="RichTextLabel" parent="Controls"]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 69.0
+offset_right = 510.0
+offset_bottom = 137.0
+text = "strafe/turn"
+fit_content = true
+autowrap_mode = 0
+
+[node name="left" type="RichTextLabel" parent="Controls"]
+layout_mode = 0
+offset_left = -160.645
+offset_top = 69.0
+offset_right = 132.355
+offset_bottom = 137.0
+text = "strafe/turn"
+fit_content = true
+autowrap_mode = 0
+
+[node name="GoalTutorial" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 471.0
+offset_top = -347.0
+offset_right = 628.0
+offset_bottom = -270.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GoalTutorial"]
+layout_mode = 2
+
+[node name="Bubble" type="TextureRect" parent="GoalTutorial/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_q7bun")
+expand_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="GoalTutorial/HBoxContainer"]
+layout_mode = 2
+
+[node name="Controls" type="RichTextLabel" parent="GoalTutorial/HBoxContainer/CenterContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "="
+fit_content = true
+autowrap_mode = 0
+
+[node name="Note" type="TextureRect" parent="GoalTutorial/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_07ng1")
+expand_mode = 2
+
+[node name="Fade" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

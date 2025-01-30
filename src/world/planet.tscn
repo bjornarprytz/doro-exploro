@@ -1,0 +1,146 @@
+[gd_scene load_steps=11 format=3 uid="uid://c8v5nh4qd750n"]
+
+[ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://world/polygon.tscn" id="1_a5yuq"]
+[ext_resource type="Script" uid="uid://muewrkjnwqns" path="res://world/planet.gd" id="1_d38ao"]
+[ext_resource type="Texture2D" uid="uid://b51jx3x78b2xh" path="res://assets/img/planets/blue moon.png" id="3_wuflm"]
+[ext_resource type="Texture2D" uid="uid://onxj6vm2bdpd" path="res://world/light.tres" id="4_ijjmx"]
+[ext_resource type="Texture2D" uid="uid://bh5saq5wwup27" path="res://assets/img/bubble test 1.png" id="4_qpsm4"]
+[ext_resource type="Texture2D" uid="uid://dloravarhfkb3" path="res://assets/white-square.png" id="5_a83c7"]
+[ext_resource type="AudioStream" uid="uid://biur3y0ycnjse" path="res://assets/audio/Bubblepop.wav" id="7_wuflm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a5yuq"]
+radius = 1000.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qpsm4"]
+radius = 250.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ijjmx"]
+radius = 400.0
+
+[node name="Planet" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_d38ao")
+
+[node name="GravityWell" type="Area2D" parent="."]
+unique_name_in_owner = true
+gravity_space_override = 3
+gravity_point = true
+gravity_point_unit_distance = 150.0
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+gravity = 500.0
+
+[node name="Shape" type="CollisionShape2D" parent="GravityWell"]
+shape = SubResource("CircleShape2D_a5yuq")
+
+[node name="Polygon" parent="GravityWell" instance=ExtResource("1_a5yuq")]
+visible = false
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(500, 0, 496.057, 62.6666, 484.292, 124.345, 464.888, 184.062, 438.153, 240.877, 404.508, 293.893, 364.484, 342.274, 318.712, 385.257, 267.913, 422.164, 212.89, 452.414, 154.508, 475.528, 93.6907, 491.144, 31.3953, 499.013, -31.3953, 499.013, -93.6907, 491.144, -154.508, 475.528, -212.89, 452.414, -267.913, 422.164, -318.712, 385.257, -364.484, 342.274, -404.508, 293.893, -438.153, 240.877, -464.888, 184.062, -484.292, 124.345, -496.057, 62.6666, -500, -1.60814e-13, -496.057, -62.6666, -484.292, -124.345, -464.888, -184.062, -438.153, -240.877, -404.508, -293.893, -364.484, -342.274, -318.712, -385.257, -267.913, -422.164, -212.89, -452.414, -154.508, -475.528, -93.6907, -491.144, -31.3953, -499.013, 31.3953, -499.013, 93.6907, -491.144, 154.508, -475.528, 212.89, -452.414, 267.913, -422.164, 318.712, -385.257, 364.484, -342.274, 404.508, -293.893, 438.153, -240.877, 464.888, -184.062, 484.292, -124.345, 496.057, -62.6666)
+size = 500.0
+n_sides = 50
+border_color = Color(0.303233, 0.303233, 0.303233, 1)
+border_width = 2.0
+
+[node name="Body" type="StaticBody2D" parent="."]
+
+[node name="Shape" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(100, 0, 98.7688, 15.6434, 95.1057, 30.9017, 89.1007, 45.3991, 80.9017, 58.7785, 70.7107, 70.7107, 58.7785, 80.9017, 45.3991, 89.1007, 30.9017, 95.1057, 15.6434, 98.7688, 6.12303e-15, 100, -15.6434, 98.7688, -30.9017, 95.1057, -45.3991, 89.1007, -58.7785, 80.9017, -70.7107, 70.7107, -80.9017, 58.7785, -89.1007, 45.3991, -95.1057, 30.9017, -98.7688, 15.6434, -100, 1.22461e-14, -98.7688, -15.6434, -95.1057, -30.9017, -89.1007, -45.3991, -80.9017, -58.7785, -70.7107, -70.7107, -58.7785, -80.9017, -45.3991, -89.1007, -30.9017, -95.1057, -15.6434, -98.7688, -1.83691e-14, -100, 15.6434, -98.7688, 30.9017, -95.1057, 45.3991, -89.1007, 58.7785, -80.9017, 70.7107, -70.7107, 80.9017, -58.7785, 89.1007, -45.3991, 95.1057, -30.9017, 98.7688, -15.6434)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("3_wuflm")
+
+[node name="Glow" type="Sprite2D" parent="Sprite"]
+show_behind_parent = true
+texture_filter = 2
+scale = Vector2(4.78125, 4.78125)
+texture = ExtResource("4_ijjmx")
+
+[node name="Atmosphere" type="Area2D" parent="."]
+unique_name_in_owner = true
+priority = 1
+gravity_space_override = 3
+gravity_point_unit_distance = 100.0
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+gravity = 0.0
+
+[node name="Bubble" type="Sprite2D" parent="Atmosphere"]
+unique_name_in_owner = true
+scale = Vector2(1.65, 1.65)
+texture = ExtResource("4_qpsm4")
+
+[node name="Pop" type="CPUParticles2D" parent="Atmosphere"]
+unique_name_in_owner = true
+position = Vector2(0, 31.8961)
+scale = Vector2(3.29568, 3.78876)
+emitting = false
+amount = 20
+texture = ExtResource("4_qpsm4")
+lifetime = 5.0
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_sphere_radius = 80.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+scale_amount_min = 0.05
+scale_amount_max = 0.2
+
+[node name="Shape" type="CollisionShape2D" parent="Atmosphere"]
+shape = SubResource("CircleShape2D_qpsm4")
+
+[node name="BubblePop" type="AudioStreamPlayer2D" parent="Atmosphere"]
+unique_name_in_owner = true
+stream = ExtResource("7_wuflm")
+
+[node name="Orbit" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Shape" type="CollisionShape2D" parent="Orbit"]
+shape = SubResource("CircleShape2D_ijjmx")
+
+[node name="DebridsBelt" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(5, 5)
+amount = 20
+texture = ExtResource("5_a83c7")
+speed_scale = 0.5
+emission_shape = 2
+emission_sphere_radius = 100.0
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+orbit_velocity_min = -0.05
+orbit_velocity_max = 0.05
+radial_accel_min = -94.41
+radial_accel_max = -50.0
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+
+[node name="Poulace" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+emitting = false
+amount = 25
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.84
+emission_shape = 2
+emission_sphere_radius = 100.0
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+radial_accel_min = 1000.0
+radial_accel_max = 1000.0
+damping_min = 50.0
+damping_max = 50.0
+
+[connection signal="body_entered" from="Atmosphere" to="." method="_on_negate_gravity_body_entered"]
+[connection signal="body_exited" from="Atmosphere" to="." method="_on_negate_gravity_body_exited"]
+[connection signal="body_entered" from="Orbit" to="." method="_on_orbit_body_entered"]
+[connection signal="body_exited" from="Orbit" to="." method="_on_orbit_body_exited"]

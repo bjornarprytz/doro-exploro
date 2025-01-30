@@ -1,0 +1,161 @@
+[gd_scene load_steps=11 format=3 uid="uid://cumrtt81540lc"]
+
+[ext_resource type="Script" uid="uid://d04rxd36i0y5i" path="res://credits.gd" id="1_g4wvt"]
+[ext_resource type="Texture2D" uid="uid://bh5saq5wwup27" path="res://assets/img/bubble test 1.png" id="1_nm7lk"]
+[ext_resource type="Texture2D" uid="uid://lr3ynrrvt7xr" path="res://assets/img/stary sky3.png" id="2_4av4j"]
+[ext_resource type="Texture2D" uid="uid://diolv3fd5mnk8" path="res://assets/img/planets/RAMS GREEN RED.png" id="2_c1t8d"]
+[ext_resource type="Texture2D" uid="uid://cswak7n47yk2o" path="res://assets/img/Soundship Pop odyssey (2).png" id="3_3mii5"]
+[ext_resource type="Texture2D" uid="uid://nr7v05x5bf5y" path="res://assets/Tvibit.png" id="4_j6beo"]
+[ext_resource type="Texture2D" uid="uid://ccfksvystlo6o" path="res://assets/UiT_Segl_Eng_Hvit_960px.png" id="5_4av4j"]
+[ext_resource type="Texture2D" uid="uid://cvwqhr20r4c75" path="res://assets/img/spaceship mockup.png" id="7_5em78"]
+[ext_resource type="Texture2D" uid="uid://cd18tjlhpktwt" path="res://assets/Splash screen logo.png" id="8_h30m1"]
+[ext_resource type="AudioStream" uid="uid://cg54b2vduki1k" path="res://assets/audio/Thank you for playing 5.wav" id="10_r4875"]
+
+[node name="Credits" type="Node2D"]
+script = ExtResource("1_g4wvt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(193, 390)
+texture = ExtResource("2_4av4j")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(1185, 400)
+texture = ExtResource("2_4av4j")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -185.0
+offset_right = 185.0
+grow_horizontal = 2
+grow_vertical = 2
+scroll_vertical_custom_step = -0.6
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="Credits" type="VBoxContainer" parent="CanvasLayer/Control/ScrollContainer"]
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+layout_mode = 2
+texture = ExtResource("3_3mii5")
+expand_mode = 4
+stretch_mode = 6
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="Bubble" type="TextureRect" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+layout_mode = 2
+texture = ExtResource("1_nm7lk")
+expand_mode = 5
+
+[node name="Control3" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+
+[node name="2" type="RichTextLabel" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+layout_mode = 2
+text = "Storskogen Spillutviklingslaug
+
+Trygve - programming
+Bjørnar - programming
+Axel - art
+Marja - music / sfx
+Klara - sfx 
+
+"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Control4" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="Planet" type="TextureRect" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+layout_mode = 2
+texture = ExtResource("2_c1t8d")
+expand_mode = 4
+
+[node name="Control5" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="3" type="RichTextLabel" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+layout_mode = 2
+text = "Thanks to
+"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Control7" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="4" type="RichTextLabel" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+layout_mode = 2
+text = "
+Tromsø Global Game Jam
+"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Logos" type="HBoxContainer" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+layout_mode = 2
+
+[node name="Tvibit" type="TextureRect" parent="CanvasLayer/Control/ScrollContainer/Credits/Logos"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("4_j6beo")
+expand_mode = 2
+
+[node name="UiT" type="TextureRect" parent="CanvasLayer/Control/ScrollContainer/Credits/Logos"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_4av4j")
+expand_mode = 4
+
+[node name="Control6" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+
+[node name="Ship" type="TextureRect" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+layout_mode = 2
+texture = ExtResource("7_5em78")
+expand_mode = 4
+
+[node name="Control8" type="Control" parent="CanvasLayer/Control/ScrollContainer/Credits"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Logo" type="Sprite2D" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(642, 359)
+scale = Vector2(0.968, 0.968)
+texture = ExtResource("8_h30m1")
+
+[node name="Thanks" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("10_r4875")

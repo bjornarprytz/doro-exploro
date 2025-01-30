@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://c57opi1lj7hu5"]
+
+[ext_resource type="Script" uid="uid://b5d0wv8y1yakk" path="res://world/sector.gd" id="1_rfmyu"]
+[ext_resource type="Texture2D" uid="uid://lr3ynrrvt7xr" path="res://assets/img/stary sky3.png" id="2_qy6gs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rfmyu"]
+size = Vector2(2000, 2000)
+
+[node name="Sector" type="Node2D"]
+script = ExtResource("1_rfmyu")
+
+[node name="OnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(0, 0, 2000, 2000)
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Shape" type="CollisionShape2D" parent="PlayerDetection"]
+position = Vector2(1000, 1000)
+shape = SubResource("RectangleShape2D_rfmyu")
+
+[node name="Background" type="Sprite2D" parent="."]
+visibility_layer = 4
+z_index = -1
+texture = ExtResource("2_qy6gs")
+centered = false
+
+[node name="Background2" type="Sprite2D" parent="."]
+visibility_layer = 4
+z_index = -1
+position = Vector2(1000, 0)
+texture = ExtResource("2_qy6gs")
+centered = false
+
+[node name="Background3" type="Sprite2D" parent="."]
+visibility_layer = 4
+z_index = -1
+position = Vector2(1000, 1000)
+texture = ExtResource("2_qy6gs")
+centered = false
+
+[node name="Background4" type="Sprite2D" parent="."]
+visibility_layer = 4
+z_index = -1
+position = Vector2(0, 1000)
+texture = ExtResource("2_qy6gs")
+centered = false
+
+[connection signal="screen_entered" from="OnScreenNotifier" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="OnScreenNotifier" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
