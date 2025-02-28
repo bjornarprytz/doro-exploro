@@ -9,3 +9,6 @@ var discovered: Array[String] = []
 signal game_over(win: bool)
 
 signal planet_discovered(planet: Planet)
+
+signal atmosphere_entered(planet: Planet)
+signal atmosphere_exited(planet: Planet)

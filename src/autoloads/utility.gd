@@ -7,7 +7,7 @@ func shake(node: CanvasItem, duration: float, magnitude: float) -> Tween:
 	var n_shakes: int = int(duration / shake_duration)
 	
 	for i in range(n_shakes):
-		tween.tween_property(node, "position", node.position + Vector2(randf_range(-magnitude, magnitude), randf_range(-magnitude, magnitude)), shake_duration)
+		tween.tween_property(node, "position", node.position + Vector2(randf_range(- magnitude, magnitude), randf_range(- magnitude, magnitude)), shake_duration)
 		tween.tween_property(node, "position", node.position, shake_duration)
 	
 	return tween
@@ -55,10 +55,10 @@ func random_color() -> Color:
 		randf_range(0, 1)
 	)
 
-func random_vector(min: float = -1, max: float = 1) -> Vector2:
+func random_vector(minVal: float = -1, maxVal: float = 1) -> Vector2:
 	return Vector2(
-		randf_range(min, max),
-		randf_range(min, max)
+		randf_range(minVal, maxVal),
+		randf_range(minVal, maxVal)
 	)
 
 func fade_in(node: CanvasItem, duration: float) -> Tween:

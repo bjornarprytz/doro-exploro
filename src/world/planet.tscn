@@ -47,11 +47,11 @@ border_width = 2.0
 [node name="Shape" type="CollisionPolygon2D" parent="Body"]
 polygon = PackedVector2Array(100, 0, 98.7688, 15.6434, 95.1057, 30.9017, 89.1007, 45.3991, 80.9017, 58.7785, 70.7107, 70.7107, 58.7785, 80.9017, 45.3991, 89.1007, 30.9017, 95.1057, 15.6434, 98.7688, 6.12303e-15, 100, -15.6434, 98.7688, -30.9017, 95.1057, -45.3991, 89.1007, -58.7785, 80.9017, -70.7107, 70.7107, -80.9017, 58.7785, -89.1007, 45.3991, -95.1057, 30.9017, -98.7688, 15.6434, -100, 1.22461e-14, -98.7688, -15.6434, -95.1057, -30.9017, -89.1007, -45.3991, -80.9017, -58.7785, -70.7107, -70.7107, -58.7785, -80.9017, -45.3991, -89.1007, -30.9017, -95.1057, -15.6434, -98.7688, -1.83691e-14, -100, 15.6434, -98.7688, 30.9017, -95.1057, 45.3991, -89.1007, 58.7785, -80.9017, 70.7107, -70.7107, 80.9017, -58.7785, 89.1007, -45.3991, 95.1057, -30.9017, 98.7688, -15.6434)
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Planet" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 texture = ExtResource("3_wuflm")
 
-[node name="Glow" type="Sprite2D" parent="Sprite"]
+[node name="Glow" type="Sprite2D" parent="Planet"]
 show_behind_parent = true
 texture_filter = 2
 scale = Vector2(4.78125, 4.78125)
@@ -140,7 +140,5 @@ radial_accel_max = 1000.0
 damping_min = 50.0
 damping_max = 50.0
 
-[connection signal="body_entered" from="Atmosphere" to="." method="_on_negate_gravity_body_entered"]
-[connection signal="body_exited" from="Atmosphere" to="." method="_on_negate_gravity_body_exited"]
-[connection signal="body_entered" from="Orbit" to="." method="_on_orbit_body_entered"]
-[connection signal="body_exited" from="Orbit" to="." method="_on_orbit_body_exited"]
+[connection signal="body_entered" from="Atmosphere" to="." method="_on_atmosphere_body_entered"]
+[connection signal="body_exited" from="Atmosphere" to="." method="_on_atmosphere_body_exited"]

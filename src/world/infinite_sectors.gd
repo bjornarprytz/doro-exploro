@@ -22,21 +22,11 @@ func _ready() -> void:
 			sectors.append(sector)
 			add_child(sector)
 			sector.set_coords_and_regenerate_planets(Vector2i(i, j))
-			sector.entered_screen.connect(_on_new_sector_entered_camera.bind(sector))
-			sector.exited_screen.connect(_on_sector_exited_camera.bind(sector))
 			sector.player_entered.connect(_on_player_entered)
 
-func _on_player_entered(sector: Sector, player: Player):
+func _on_player_entered(sector: Sector, _player: Player):
 	current_sector = sector
 	_scroll_sectors()
-
-func _on_new_sector_entered_camera(sector: Sector) -> void:
-	#print("Sector entered: %s" % sector.name)
-	pass
-
-func _on_sector_exited_camera(sector: Sector) -> void:
-	#print("Sector exited: %s" % sector.name)
-	pass
 
 func _scroll_sectors() -> void:
 	var current_coords = current_sector.coordinates

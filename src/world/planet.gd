@@ -3,7 +3,7 @@ extends Node2D
 
 @onready var gravity_well: Area2D = %GravityWell
 @onready var gravity_well_shape: CollisionShape2D = %GravityWell/Shape
-@onready var sprite: Sprite2D = %Sprite
+@onready var planet_sprite: Sprite2D = %Planet
 @onready var atmosphere_shape: CollisionShape2D = %Atmosphere/Shape
 @onready var poulace: CPUParticles2D = %Poulace
 @onready var debrids_belt: CPUParticles2D = %DebridsBelt
@@ -57,7 +57,7 @@ var radius: float:
 
 func _ready() -> void:
 	var texture = planet_sprites.pick_random()
-	sprite.texture = texture
+	planet_sprite.texture = texture
 	type = texture.get_path().get_file().get_basename()
 	id = randf_range(0, 1)
 	
@@ -91,28 +91,19 @@ func _pop_bubble(silent: bool = false):
 func _on_beat(_number: int):
 	var tween = create_tween()
 	poulace.emitting = true
-	tween.tween_property(sprite, "scale", Vector2.ONE * 1.1, .069)
+	tween.tween_property(planet_sprite, "scale", Vector2.ONE * 1.1, .069)
 	tween.set_parallel()
 	tween.tween_property(shape, "scale", Vector2.ONE * 1.1, .069)
 	tween.set_parallel(false)
-	tween.tween_property(sprite, "scale", Vector2.ONE, .169)
+	tween.tween_property(planet_sprite, "scale", Vector2.ONE, .169)
 	tween.set_parallel()
 	tween.tween_property(shape, "scale", Vector2.ONE, .169)
 
-
-func _on_negate_gravity_body_exited(body: Node2D) -> void:
-	if (body is Player):
-		body.atmosphere_exited.emit()
-
-func _on_negate_gravity_body_entered(body: Node2D) -> void:
+func _on_atmosphere_body_entered(body: Node2D) -> void:
 	if (body is Player):
 		_pop_bubble()
-		body.atmosphere_entered.emit(self)
+		Events.atmosphere_entered.emit(self)
 
-func _on_orbit_body_entered(body: Node2D) -> void:
+func _on_atmosphere_body_exited(body: Node2D) -> void:
 	if (body is Player):
-		body.entered_orbit(self)
-
-func _on_orbit_body_exited(body: Node2D) -> void:
-	if (body is Player):
-		body.exited_orbit()
+		Events.atmosphere_exited.emit(self)
