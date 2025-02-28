@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8v5nh4qd750n"]
+[gd_scene load_steps=12 format=3 uid="uid://c8v5nh4qd750n"]
 
 [ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://world/polygon.tscn" id="1_a5yuq"]
 [ext_resource type="Script" uid="uid://muewrkjnwqns" path="res://world/planet.gd" id="1_d38ao"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://onxj6vm2bdpd" path="res://world/light.tres" id="4_ijjmx"]
 [ext_resource type="Texture2D" uid="uid://bh5saq5wwup27" path="res://assets/img/bubble test 1.png" id="4_qpsm4"]
 [ext_resource type="Texture2D" uid="uid://dloravarhfkb3" path="res://assets/white-square.png" id="5_a83c7"]
+[ext_resource type="Texture2D" uid="uid://b2i7m1cbmfrhm" path="res://assets/img/circle.png" id="5_vh337"]
 [ext_resource type="AudioStream" uid="uid://biur3y0ycnjse" path="res://assets/audio/Bubblepop.wav" id="7_wuflm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a5yuq"]
@@ -56,6 +57,12 @@ show_behind_parent = true
 texture_filter = 2
 scale = Vector2(4.78125, 4.78125)
 texture = ExtResource("4_ijjmx")
+
+[node name="Sky" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("5_vh337")
 
 [node name="Atmosphere" type="Area2D" parent="."]
 unique_name_in_owner = true

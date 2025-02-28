@@ -13,6 +13,7 @@ extends Node2D
 @onready var orbit_shape: CollisionShape2D = $Orbit/Shape
 @onready var bubble_pop: AudioStreamPlayer2D = %BubblePop
 @onready var shape: CollisionPolygon2D = $Body/Shape
+@onready var sky: Sprite2D = %Sky
 
 var planet_sprites = [
 preload("res://assets/img/planets/beige, brown greenish asteroid.png"),
