@@ -93,6 +93,16 @@ const transition_time := .39
 
 var transition_tween: Tween
 
+func add_flower(flower: Node2D, g_position: Vector2) -> void:
+	planet_sprite.add_child(flower)
+
+	# Face the flower away from the planet
+	var direction = (g_position - global_position).normalized()
+
+	# Position at the surface of the planet
+	flower.position = direction * (planet_sprite.texture.get_height() / 2.0)
+	flower.rotation = direction.angle()
+
 func transition_into_focus():
 	if transition_tween:
 		transition_tween.stop()
@@ -119,7 +129,6 @@ func transition_out_of_focus():
 	
 	if bubble_popped and !Symphony.beat.is_connected(_on_beat):
 		Symphony.beat.connect(_on_beat)
-
 
 func _on_beat(_number: int):
 	var tween = create_tween()

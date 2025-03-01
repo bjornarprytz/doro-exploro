@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgplgo8dqwls3"]
+
+[ext_resource type="Texture2D" uid="uid://ckol1756lrldq" path="res://assets/img/note_2.png" id="1_6vm4m"]
+[ext_resource type="Script" uid="uid://bcu8x378qismm" path="res://world/seed_pod.gd" id="1_nn2m2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_naqwi"]
+radius = 8.0
+
+[node name="SeedPod" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 4
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_nn2m2")
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_naqwi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(0, -4)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("1_6vm4m")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

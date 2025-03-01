@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://cxao6ojdyjlsy"]
+
+[ext_resource type="Texture2D" uid="uid://div864atujcrd" path="res://assets/img/flower_bloom-Sheet.png" id="1_bv8vr"]
+[ext_resource type="Script" uid="uid://n81ijgvskl0s" path="res://world/flower.gd" id="1_e55dh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e55dh"]
+atlas = ExtResource("1_bv8vr")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2g3a"]
+atlas = ExtResource("1_bv8vr")
+region = Rect2(10, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtv12"]
+atlas = ExtResource("1_bv8vr")
+region = Rect2(20, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6g2nt"]
+atlas = ExtResource("1_bv8vr")
+region = Rect2(30, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pph30"]
+atlas = ExtResource("1_bv8vr")
+region = Rect2(40, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kfa5"]
+atlas = ExtResource("1_bv8vr")
+region = Rect2(50, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ue0w6"]
+atlas = ExtResource("1_bv8vr")
+region = Rect2(60, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yc6i2"]
+atlas = ExtResource("1_bv8vr")
+region = Rect2(70, 0, 10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7bsja"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e55dh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2g3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtv12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6g2nt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pph30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kfa5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ue0w6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yc6i2")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Flower" type="Node2D"]
+script = ExtResource("1_e55dh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+rotation = 1.57079
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_7bsja")
+autoplay = "default"
+offset = Vector2(0, -5)
