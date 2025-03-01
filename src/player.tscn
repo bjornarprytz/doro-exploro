@@ -15,6 +15,7 @@ _data = [Vector2(0, 0.303371), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="Player" type="RigidBody2D"]
+top_level = true
 texture_filter = 1
 collision_layer = 3
 script = ExtResource("1_onrkg")

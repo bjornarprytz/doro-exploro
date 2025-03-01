@@ -13,7 +13,8 @@ extends Node2D
 @onready var orbit_shape: CollisionShape2D = $Orbit/Shape
 @onready var bubble_pop: AudioStreamPlayer2D = %BubblePop
 @onready var shape: CollisionPolygon2D = $Body/Shape
-@onready var sky: Sprite2D = %Sky
+@onready var sky: Node2D = %Sky
+@onready var glow: Node2D = %Glow
 
 var planet_sprites = [
 preload("res://assets/img/planets/beige, brown greenish asteroid.png"),
@@ -65,29 +66,60 @@ func _ready() -> void:
 	Events.planet_discovered.connect(_on_planet_discovered)
 	
 	if (type in Events.discovered):
-		_pop_bubble(true)
+		pop_bubble(true)
 
 func _on_planet_discovered(planet: Planet):
 	if planet == self:
 		return
 	
 	if (planet.type == type):
-		_pop_bubble()
+		pop_bubble()
 
 func set_size(s: float):
 	size = s
 	scale = Vector2(s, s)
 	gravity_well.gravity_point_unit_distance = atmosphere_shape.shape.radius * size
 
-func _pop_bubble(silent: bool = false):
+func pop_bubble(silent: bool = false):
 	if bubble_popped:
 		return
 	if (!silent):
 		bubble_pop.play(0.32)
 	bubble_popped = true
-	Symphony.beat.connect(_on_beat)
 	bubble.hide()
 	pop.emitting = true
+
+const transition_time := .39
+
+var transition_tween: Tween
+
+func transition_into_focus():
+	if transition_tween:
+		transition_tween.stop()
+
+	transition_tween = create_tween().set_parallel()
+	sky.show()
+	sky.scale = Vector2.ZERO
+	sky.modulate.a = 0.0
+	transition_tween.tween_property(sky, "scale", Vector2.ONE, transition_time)
+	transition_tween.tween_property(sky, "modulate:a", 1.0, transition_time)
+	transition_tween.tween_property(glow, "scale", Vector2.ZERO, transition_time)
+	if Symphony.beat.is_connected(_on_beat):
+		Symphony.beat.disconnect(_on_beat)
+
+func transition_out_of_focus():
+	if transition_tween:
+		transition_tween.stop()
+
+	transition_tween = create_tween().set_parallel()
+	transition_tween.tween_property(sky, "modulate:a", 0.0, transition_time)
+	transition_tween.tween_property(sky, "scale", Vector2.ZERO, transition_time)
+	transition_tween.tween_callback(sky.hide)
+	transition_tween.tween_property(glow, "scale", Vector2.ONE, transition_time)
+	
+	if bubble_popped and !Symphony.beat.is_connected(_on_beat):
+		Symphony.beat.connect(_on_beat)
+
 
 func _on_beat(_number: int):
 	var tween = create_tween()
@@ -102,7 +134,6 @@ func _on_beat(_number: int):
 
 func _on_atmosphere_body_entered(body: Node2D) -> void:
 	if (body is Player):
-		_pop_bubble()
 		Events.atmosphere_entered.emit(self)
 
 func _on_atmosphere_body_exited(body: Node2D) -> void:

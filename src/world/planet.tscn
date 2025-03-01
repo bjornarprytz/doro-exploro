@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8v5nh4qd750n"]
+[gd_scene load_steps=14 format=3 uid="uid://c8v5nh4qd750n"]
 
 [ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://world/polygon.tscn" id="1_a5yuq"]
 [ext_resource type="Script" uid="uid://muewrkjnwqns" path="res://world/planet.gd" id="1_d38ao"]
+[ext_resource type="Shader" uid="uid://b4wbtl6w25bxf" path="res://world/sky_shader.gdshader" id="3_qpyo0"]
 [ext_resource type="Texture2D" uid="uid://b51jx3x78b2xh" path="res://assets/img/planets/blue moon.png" id="3_wuflm"]
 [ext_resource type="Texture2D" uid="uid://onxj6vm2bdpd" path="res://world/light.tres" id="4_ijjmx"]
 [ext_resource type="Texture2D" uid="uid://bh5saq5wwup27" path="res://assets/img/bubble test 1.png" id="4_qpsm4"]
@@ -12,8 +13,13 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_a5yuq"]
 radius = 1000.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dpgem"]
+shader = ExtResource("3_qpyo0")
+shader_parameter/fade_start = 0.8
+shader_parameter/fade_range = 0.2
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_qpsm4"]
-radius = 250.0
+radius = 314.025
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ijjmx"]
 radius = 400.0
@@ -52,16 +58,25 @@ polygon = PackedVector2Array(100, 0, 98.7688, 15.6434, 95.1057, 30.9017, 89.1007
 unique_name_in_owner = true
 texture = ExtResource("3_wuflm")
 
-[node name="Glow" type="Sprite2D" parent="Planet"]
+[node name="Glow" type="Node2D" parent="Planet"]
+unique_name_in_owner = true
+show_behind_parent = true
+
+[node name="Sprite" type="Sprite2D" parent="Planet/Glow"]
 show_behind_parent = true
 texture_filter = 2
 scale = Vector2(4.78125, 4.78125)
 texture = ExtResource("4_ijjmx")
 
-[node name="Sky" type="Sprite2D" parent="."]
+[node name="Sky" type="Node2D" parent="Planet"]
 unique_name_in_owner = true
 visible = false
-scale = Vector2(6.25, 6.25)
+show_behind_parent = true
+
+[node name="Sprite" type="Sprite2D" parent="Planet/Sky"]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_dpgem")
+scale = Vector2(5.51563, 5.51563)
 texture = ExtResource("5_vh337")
 
 [node name="Atmosphere" type="Area2D" parent="."]
@@ -75,7 +90,7 @@ gravity = 0.0
 
 [node name="Bubble" type="Sprite2D" parent="Atmosphere"]
 unique_name_in_owner = true
-scale = Vector2(1.65, 1.65)
+scale = Vector2(2.09967, 2.09967)
 texture = ExtResource("4_qpsm4")
 
 [node name="Pop" type="CPUParticles2D" parent="Atmosphere"]
