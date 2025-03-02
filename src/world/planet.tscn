@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://onxj6vm2bdpd" path="res://world/light.tres" id="4_ijjmx"]
 [ext_resource type="Texture2D" uid="uid://bh5saq5wwup27" path="res://assets/img/bubble test 1.png" id="4_qpsm4"]
 [ext_resource type="Texture2D" uid="uid://dloravarhfkb3" path="res://assets/white-square.png" id="5_a83c7"]
-[ext_resource type="Texture2D" uid="uid://b2i7m1cbmfrhm" path="res://assets/img/circle.png" id="5_vh337"]
+[ext_resource type="Texture2D" uid="uid://cd4eefvq4mwl6" path="res://assets/img/atmosphere.png" id="6_qpyo0"]
 [ext_resource type="AudioStream" uid="uid://biur3y0ycnjse" path="res://assets/audio/Bubblepop.wav" id="7_wuflm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a5yuq"]
@@ -78,8 +78,7 @@ show_behind_parent = true
 [node name="Sprite" type="Sprite2D" parent="Planet/Sky"]
 show_behind_parent = true
 material = SubResource("ShaderMaterial_dpgem")
-scale = Vector2(5.51563, 5.51563)
-texture = ExtResource("5_vh337")
+texture = ExtResource("6_qpyo0")
 
 [node name="Atmosphere" type="Area2D" parent="."]
 unique_name_in_owner = true

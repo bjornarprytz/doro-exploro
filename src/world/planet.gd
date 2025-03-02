@@ -124,8 +124,9 @@ func transition_out_of_focus():
 	transition_tween = create_tween().set_parallel()
 	transition_tween.tween_property(sky, "modulate:a", 0.0, transition_time)
 	transition_tween.tween_property(sky, "scale", Vector2.ZERO, transition_time)
-	transition_tween.tween_callback(sky.hide)
 	transition_tween.tween_property(glow, "scale", Vector2.ONE, transition_time)
+	transition_tween.set_parallel(false)
+	transition_tween.tween_callback(sky.hide)
 	
 	if bubble_popped and !Symphony.beat.is_connected(_on_beat):
 		Symphony.beat.connect(_on_beat)
