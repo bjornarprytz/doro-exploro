@@ -82,7 +82,7 @@ offset = Vector2(0, -5)
 
 [node name="Pollen" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(18, 1)
+position = Vector2(17, 5)
 emitting = false
 lifetime = 0.3
 one_shot = true
