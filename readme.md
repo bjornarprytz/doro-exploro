@@ -4,7 +4,7 @@ game on itch.io: [link](https://thewarlock.itch.io/doro-exploro)
 
 ## TODO
 
-- Add art
+- Add Doro art
   - Seed
   - Atmosphere
   - Flowers
