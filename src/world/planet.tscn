@@ -1,17 +1,25 @@
-[gd_scene load_steps=14 format=3 uid="uid://c8v5nh4qd750n"]
+[gd_scene load_steps=17 format=3 uid="uid://c8v5nh4qd750n"]
 
 [ext_resource type="PackedScene" uid="uid://c57sfkee815gl" path="res://world/polygon.tscn" id="1_a5yuq"]
 [ext_resource type="Script" uid="uid://muewrkjnwqns" path="res://world/planet.gd" id="1_d38ao"]
+[ext_resource type="Shader" uid="uid://drepqnykdgvvp" path="res://world/sphere_shader.gdshader" id="3_75huy"]
+[ext_resource type="Texture2D" uid="uid://cnh0at8dwmpft" path="res://assets/img/planets/planet-palette-01.png" id="3_dpgem"]
 [ext_resource type="Shader" uid="uid://b4wbtl6w25bxf" path="res://world/sky_shader.gdshader" id="3_qpyo0"]
-[ext_resource type="Texture2D" uid="uid://b51jx3x78b2xh" path="res://assets/img/planets/blue moon.png" id="3_wuflm"]
 [ext_resource type="Texture2D" uid="uid://onxj6vm2bdpd" path="res://world/light.tres" id="4_ijjmx"]
 [ext_resource type="Texture2D" uid="uid://bh5saq5wwup27" path="res://assets/img/bubble test 1.png" id="4_qpsm4"]
+[ext_resource type="Texture2D" uid="uid://b5ixgonadnmj6" path="res://assets/white-square-big.png" id="5_75huy"]
 [ext_resource type="Texture2D" uid="uid://dloravarhfkb3" path="res://assets/white-square.png" id="5_a83c7"]
 [ext_resource type="Texture2D" uid="uid://cd4eefvq4mwl6" path="res://assets/img/atmosphere.png" id="6_qpyo0"]
 [ext_resource type="AudioStream" uid="uid://biur3y0ycnjse" path="res://assets/audio/Bubblepop.wav" id="7_wuflm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a5yuq"]
 radius = 1000.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_75huy"]
+shader = ExtResource("3_75huy")
+shader_parameter/light_pos = Vector2(-1, -1)
+shader_parameter/light_intensity = 1.5
+shader_parameter/ambient_light = 0.2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dpgem"]
 shader = ExtResource("3_qpyo0")
@@ -56,9 +64,25 @@ collision_mask = 5
 [node name="Shape" type="CollisionPolygon2D" parent="Body"]
 polygon = PackedVector2Array(100, 0, 98.7688, 15.6434, 95.1057, 30.9017, 89.1007, 45.3991, 80.9017, 58.7785, 70.7107, 70.7107, 58.7785, 80.9017, 45.3991, 89.1007, 30.9017, 95.1057, 15.6434, 98.7688, 6.12303e-15, 100, -15.6434, 98.7688, -30.9017, 95.1057, -45.3991, 89.1007, -58.7785, 80.9017, -70.7107, 70.7107, -80.9017, 58.7785, -89.1007, 45.3991, -95.1057, 30.9017, -98.7688, 15.6434, -100, 1.22461e-14, -98.7688, -15.6434, -95.1057, -30.9017, -89.1007, -45.3991, -80.9017, -58.7785, -70.7107, -70.7107, -58.7785, -80.9017, -45.3991, -89.1007, -30.9017, -95.1057, -15.6434, -98.7688, -1.83691e-14, -100, 15.6434, -98.7688, 30.9017, -95.1057, 45.3991, -89.1007, 58.7785, -80.9017, 70.7107, -70.7107, 80.9017, -58.7785, 89.1007, -45.3991, 95.1057, -30.9017, 98.7688, -15.6434)
 
-[node name="Planet" type="Sprite2D" parent="."]
+[node name="Planet" type="Node2D" parent="."]
 unique_name_in_owner = true
-texture = ExtResource("3_wuflm")
+
+[node name="Polygon" parent="Planet" instance=ExtResource("1_a5yuq")]
+unique_name_in_owner = true
+clip_children = 2
+polygon = PackedVector2Array(100, 0, 97.8148, 20.7912, 91.3545, 40.6737, 80.9017, 58.7785, 66.9131, 74.3145, 50, 86.6025, 30.9017, 95.1057, 10.4528, 99.4522, -10.4528, 99.4522, -30.9017, 95.1057, -50, 86.6025, -66.9131, 74.3145, -80.9017, 58.7785, -91.3545, 40.6737, -97.8148, 20.7912, -100, 1.22461e-14, -97.8148, -20.7912, -91.3545, -40.6737, -80.9017, -58.7785, -66.9131, -74.3145, -50, -86.6025, -30.9017, -95.1057, -10.4528, -99.4522, 10.4528, -99.4522, 30.9017, -95.1057, 50, -86.6025, 66.9131, -74.3145, 80.9017, -58.7785, 91.3545, -40.6737, 97.8148, -20.7912)
+size = 100.0
+n_sides = 30
+
+[node name="PlanetCanvas" type="Sprite2D" parent="Planet/Polygon"]
+unique_name_in_owner = true
+texture_filter = 1
+texture = ExtResource("3_dpgem")
+
+[node name="SphereEffect" type="Sprite2D" parent="Planet/Polygon"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_75huy")
+texture = ExtResource("5_75huy")
 
 [node name="Glow" type="Node2D" parent="Planet"]
 unique_name_in_owner = true

@@ -8,7 +8,6 @@ game on itch.io: [link](https://thewarlock.itch.io/doro-exploro)
   - Seed
   - Atmosphere
   - Flowers
-  - Planets
 - Inhabitants
   - Random color
 - Planet
