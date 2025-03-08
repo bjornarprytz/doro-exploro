@@ -8,5 +8,16 @@ game on itch.io: [link](https://thewarlock.itch.io/doro-exploro)
   - Seed
   - Atmosphere
   - Flowers
+  - Planets
+- Inhabitants
+  - Random color
+- Planet
+  - Sepia -> Color, when adding plants
+  - When fully planted, an inhabitant joins the crew
+  - Diversity in inhabitants
+- Soundship band
+- Planet state
+  - Flowers
+  - Inhabitants
 
 - Push release with `./push_release.sh`
