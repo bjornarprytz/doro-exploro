@@ -6,6 +6,7 @@ class State:
 	var bubble_popped = false
 	var sprite: Texture = Planet.planet_sprites.pick_random()
 	var canvas_offset: Vector2 = Utility.random_vector(-100.0, 100.0)
+	var flowers: Array[Vector2] = []
 
 
 static var states: Dictionary[String, State] = {}
@@ -71,6 +72,8 @@ func update_visuals_based_on_state():
 		if !Symphony.beat.is_connected(_on_beat):
 			Symphony.beat.connect(_on_beat)
 
+	for flower_direction in state.flowers:
+		_add_flower_internal(flower_direction)
 
 func pop_bubble():
 	if state.bubble_popped:
@@ -84,15 +87,23 @@ const transition_time := .39
 
 var transition_tween: Tween
 
-func add_flower(flower: Node2D, g_position: Vector2) -> void:
-	planet_visual.add_child(flower)
-
-	# Face the flower away from the planet
+func add_flower(g_position: Vector2) -> void:
 	var direction = (g_position - global_position).normalized()
+	_add_flower_internal(direction)
+	state.flowers.push_back(direction)
+
+func _add_flower_internal(direction: Vector2):
+	if (!direction.is_normalized()):
+		push_error("flower direction should be normalized!")
+		return
+	
+	var flower = Create.flower()
+	planet_visual.add_child(flower)
 
 	# Position at the surface of the planet
 	flower.position = direction * (planet_polygon.size)
 	flower.rotation = direction.angle()
+	
 
 func transition_into_focus():
 	if transition_tween:
