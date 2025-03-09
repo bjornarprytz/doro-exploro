@@ -6,15 +6,15 @@ extends Node2D
 
 @onready var current_planet: Node2D = null
 
+var progress: int = 0
+
 func _ready() -> void:
-	Events.discovered = []
 	Events.game_over.connect(_on_game_over)
 	Events.atmosphere_entered.connect(_on_atmosphere_entered)
 	Events.atmosphere_exited.connect(_on_atmosphere_exited)
 
 	camera.global_position = player.global_position
 
-	
 func _process(_delta: float) -> void:
 	if current_planet:
 		# Midway point between player and planet
@@ -33,18 +33,18 @@ func _on_game_over(_win: bool):
 func _on_atmosphere_entered(planet: Planet):
 	_transition_to_planet_scene(planet)
 	
-	if planet.type in Events.discovered:
+	if planet.state.bubble_popped:
 		return
+	progress += 1
 
 	planet.pop_bubble()
 	
-	Events.discovered.push_back(planet.type)
 	Symphony.add_instrument()
 	_update_goal()
 	Events.planet_discovered.emit(planet)
 
 
-	if (Events.discovered.size() >= Events.goal):
+	if (progress >= Events.goal):
 		Events.game_over.emit(true)
 	
 func _on_atmosphere_exited(planet: Planet):
@@ -63,4 +63,4 @@ func _transition_to_planet_scene(planet: Planet) -> void:
 	planet.transition_into_focus()
 
 func _update_goal():
-	goal.text = "%s / %s" % [Events.discovered.size(), Events.goal]
+	goal.text = "%d / %d" % [progress, Events.goal]

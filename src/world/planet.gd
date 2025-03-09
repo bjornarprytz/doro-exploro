@@ -1,6 +1,15 @@
 class_name Planet
 extends Node2D
 
+class State:
+	var size: float = randf_range(0.6, 1)
+	var bubble_popped = false
+	var sprite: Texture = Planet.planet_sprites.pick_random()
+	var canvas_offset: Vector2 = Utility.random_vector(-100.0, 100.0)
+
+
+static var states: Dictionary[String, State] = {}
+
 @onready var gravity_well: Area2D = %GravityWell
 @onready var gravity_well_shape: CollisionShape2D = %GravityWell/Shape
 @onready var planet_visual: Node2D = %Planet
@@ -19,7 +28,7 @@ extends Node2D
 @onready var sky: Node2D = %Sky
 @onready var glow: Node2D = %Glow
 
-var planet_sprites = [
+static var planet_sprites = [
 	preload("res://assets/img/planets/planet-palette-01.png"),
 	preload("res://assets/img/planets/planet-palette-02.png"),
 	preload("res://assets/img/planets/planet-palette-03.png"),
@@ -30,42 +39,44 @@ var planet_sprites = [
 	preload("res://assets/img/planets/planet-palette-08.png"),
 ]
 
-var size: float = 1.0
-var bubble_popped = false
-var type: String
+var id: String
 
-var radius: float:
+var state: State:
 	get:
-		return orbit_shape.shape.radius * size
+		if !Planet.states.has(id):
+			push_error("Planet state not found: " + id)
+
+		return Planet.states[id]
+
+
+var perimiter: float:
+	get:
+		return orbit_shape.shape.radius * state.size
 
 func _ready() -> void:
-	var texture = planet_sprites.pick_random()
-	planet_canvas.texture = texture
-	planet_canvas.offset = Utility.random_vector(-100.0, 100.0)
-	
-	Events.planet_discovered.connect(_on_planet_discovered)
-	
-	if (type in Events.discovered):
-		pop_bubble(true)
+	gravity_well.gravity_point_unit_distance = atmosphere_shape.shape.radius * state.size
 
-func _on_planet_discovered(planet: Planet):
-	if planet == self:
+	update_visuals_based_on_state()
+
+func update_visuals_based_on_state():
+	planet_canvas.texture = state.sprite
+	planet_canvas.offset = state.canvas_offset
+
+	scale = Vector2(state.size, state.size)
+
+	if !state.bubble_popped:
+		bubble.show()
+	else:
+		bubble.hide()
+		if !Symphony.beat.is_connected(_on_beat):
+			Symphony.beat.connect(_on_beat)
+
+
+func pop_bubble():
+	if state.bubble_popped:
 		return
-	
-	if (planet.type == type):
-		pop_bubble()
-
-func set_size(s: float):
-	size = s
-	scale = Vector2(s, s)
-	gravity_well.gravity_point_unit_distance = atmosphere_shape.shape.radius * size
-
-func pop_bubble(silent: bool = false):
-	if bubble_popped:
-		return
-	if (!silent):
-		bubble_pop.play(0.32)
-	bubble_popped = true
+	bubble_pop.play(0.32)
+	state.bubble_popped = true
 	bubble.hide()
 	pop.emitting = true
 
@@ -108,7 +119,7 @@ func transition_out_of_focus():
 	transition_tween.set_parallel(false)
 	transition_tween.tween_callback(sky.hide)
 	
-	if bubble_popped and !Symphony.beat.is_connected(_on_beat):
+	if state.bubble_popped and !Symphony.beat.is_connected(_on_beat):
 		Symphony.beat.connect(_on_beat)
 
 func _on_beat(_number: int):

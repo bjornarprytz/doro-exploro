@@ -8,8 +8,19 @@ var sector_scene: PackedScene = preload("res://world/sector.tscn")
 var seed_pod_scene: PackedScene = preload("res://world/seed_pod.tscn")
 var flower_scene: PackedScene = preload("res://world/flower.tscn")
 
-func planet() -> Planet:
-	return planet_scene.instantiate() as Planet
+func planet(id: String) -> Planet:
+	var planet_node = planet_scene.instantiate() as Planet
+	planet_node.id = id
+	
+	if !Planet.states.has(id):
+		Planet.states[id] = Planet.State.new()
+	else:
+		print("Planet state already exists: %s, nice" % id)
+	
+	planet_node.state = Planet.states[id]
+
+	return planet_node
+
 
 func sector() -> Sector:
 	return sector_scene.instantiate() as Sector

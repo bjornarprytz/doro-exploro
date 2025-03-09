@@ -28,17 +28,16 @@ func set_coords_and_regenerate_planets(coords: Vector2i) -> void:
 
 	# Generate new planets
 	for i in range(planet_count):
-		var planet = Create.planet()
+		var planet_id = "(%d, %d):%d" % [coords.x, coords.y, i]
+		var planet = Create.planet(planet_id)
 		
 		planets.append(planet)
 		add_child(planet)
 		
-		planet.set_size(randf_range(0.6, 1))
 		set_valid_position_or_destroy(planet, min_distance)
 
 func set_valid_position_or_destroy(planet: Planet, min_dist: float) -> void:
-
-	var planetSafePerimiter = planet.radius + min_dist
+	var planetSafePerimiter = planet.perimiter + min_dist
 
 	var max_attempts = 50 # Prevent infinite loops
 	for _i in range(max_attempts):
@@ -46,7 +45,7 @@ func set_valid_position_or_destroy(planet: Planet, min_dist: float) -> void:
 		# Check distance to all existing planets
 		var valid = true
 		for other in planets:
-			if pos.distance_to(other.position) < (planetSafePerimiter + other.radius):
+			if pos.distance_to(other.position) < (planetSafePerimiter + other.perimiter):
 				valid = false
 				break
 		if valid:
