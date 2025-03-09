@@ -7,6 +7,10 @@ class State:
 	var sprite: Texture = Planet.planet_sprites.pick_random()
 	var canvas_offset: Vector2 = Utility.random_vector(-100.0, 100.0)
 	var flowers: Array[Vector2] = []
+	var inhabitants: Dictionary = { # TODO: Make this a class
+		"color": Utility.random_color(),
+		"count": randi_range(1, 5)
+	}
 
 
 static var states: Dictionary[String, State] = {}
@@ -49,7 +53,6 @@ var state: State:
 
 		return Planet.states[id]
 
-
 var perimiter: float:
 	get:
 		return orbit_shape.shape.radius * state.size
@@ -58,6 +61,13 @@ func _ready() -> void:
 	gravity_well.gravity_point_unit_distance = atmosphere_shape.shape.radius * state.size
 
 	update_visuals_based_on_state()
+
+	for i in range(state.inhabitants["count"]):
+		var inhabitant = Create.inhabitant(4, state.inhabitants["color"])
+		get_tree().root.add_child.call_deferred(inhabitant)
+		var direction = Utility.random_vector(-1.0, 1.0).normalized()
+		inhabitant.global_position = (direction * (planet_polygon.size + 30)) + global_position
+		inhabitant.rotation = direction.angle()
 
 func update_visuals_based_on_state():
 	planet_canvas.texture = state.sprite

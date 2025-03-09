@@ -7,6 +7,7 @@ var planet_scene: PackedScene = preload("res://world/planet.tscn")
 var sector_scene: PackedScene = preload("res://world/sector.tscn")
 var seed_pod_scene: PackedScene = preload("res://world/seed_pod.tscn")
 var flower_scene: PackedScene = preload("res://world/flower.tscn")
+var inhabitant_scene: PackedScene = preload("res://world/inhabitant.tscn")
 
 func planet(id: String) -> Planet:
 	var planet_node = planet_scene.instantiate() as Planet
@@ -30,3 +31,11 @@ func seed_pod() -> SeedPod:
 
 func flower() -> Flower:
 	return flower_scene.instantiate() as Flower
+
+func inhabitant(edges: int, color: Color) -> Inhabitant:
+	var inhabitant_node = inhabitant_scene.instantiate() as Inhabitant
+
+	inhabitant_node.edges = edges
+	inhabitant_node.modulate = color
+
+	return inhabitant_node
